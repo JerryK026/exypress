@@ -11,6 +11,7 @@
   "author": "Seokyung Kim : kskyung0624@gmail.com",
   "license": "MIT",
   "devDependencies": {
+    "@swc/core": "^1.2.248",
     "@types/node": "^18.7.15",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
