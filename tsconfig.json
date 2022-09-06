@@ -23,7 +23,7 @@
     "paths": {
       "@exypress/*": ["exypress/*"],
       "@common/*": ["common/*"],
-      "@src/*": ["src/*"],
+      "@src/*": ["src/*"]
     }
   },
   "include": ["./src/**/*"],

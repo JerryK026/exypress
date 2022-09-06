@@ -1,1 +1,1 @@
-export const sample = "123";
+export const sample = '123';
