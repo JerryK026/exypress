@@ -6,11 +6,29 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const envFound = dotenv.config();
 
 if (envFound.error) {
-  throw new Error(messages.ENV_NOT_FOUND);
+  throw new Error(messages.ENV_NOT_FOUND_ERROR);
 }
+
+const parseCorsOrigin = (origin: string | undefined) => {
+  if (!origin) {
+    return '*';
+  }
+
+  try {
+    const co = [...JSON.parse(origin)];
+    console.log(co);
+  } catch (error) {
+    throw new Error(messages.ENV_CORS_ERROR);
+  }
+};
 
 export default {
   port: Number(process.env.PORT),
+
+  corsOptions: {
+    origin: parseCorsOrigin(process.env.corsOrigin),
+    credential: true,
+  },
 
   jwtSecret: process.env.JWT_SECRET,
 };
