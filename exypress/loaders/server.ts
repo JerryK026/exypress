@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import config from '../config';
 
+import morgan from 'morgan';
+
 export default ({ app }: { app: express.Application }) => {
   // parse requests which comes with 'urlencoded payload'
   // extended: true => use 'qs' library
@@ -23,4 +25,6 @@ export default ({ app }: { app: express.Application }) => {
   if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
   }
+
+  app.use(morgan('combined'));
 };
