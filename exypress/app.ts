@@ -1,7 +1,7 @@
 import config from './config';
 import * as express from 'express';
 
-import { Logger } from './loaders/logger';
+import { logger } from './loaders/logger';
 import messages from '../common/messages';
 
 async function startServer() {
@@ -9,10 +9,10 @@ async function startServer() {
 
   app
     .listen(config.port, () => {
-      Logger.log(messages.SERVER_RUNNING(config.port));
+      logger.info(messages.SERVER_RUNNING(config.port));
     })
     .on('error', (err) => {
-      Logger.error(err);
+      logger.error(err);
       process.exit(1);
     });
 }

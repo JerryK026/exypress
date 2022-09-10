@@ -15,8 +15,7 @@ const parseCorsOrigin = (origin: string | undefined) => {
   }
 
   try {
-    const co = [...JSON.parse(origin)];
-    console.log(co);
+    return [...JSON.parse(origin)];
   } catch (error) {
     throw new Error(messages.ENV_CORS_ERROR);
   }
