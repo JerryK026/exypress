@@ -1,13 +1,14 @@
 import config from './config';
-import * as express from 'express';
+import app from './loaders/server';
 
 import { logger } from './loaders/logger';
 import messages from '../common/messages';
+import { createServer } from 'http';
 
 async function startServer() {
-  const app = express();
+  const server = createServer(app);
 
-  app
+  server
     .listen(config.port, () => {
       logger.info(messages.SERVER_RUNNING(config.port));
     })

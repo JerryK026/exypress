@@ -1,7 +1,8 @@
-import { sample as srcSample } from '../src/index';
+import express from 'express';
+import apiService from '../src/';
 
-const sample = 'Hello src';
+export const routers = (app: express.Application) => {
+  app.use('/api/v1', apiService);
+};
 
-console.log(sample);
-
-console.log(srcSample);
+export default routers;

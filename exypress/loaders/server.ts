@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 
 import cors from 'cors';
 import helmet from 'helmet';
@@ -7,24 +7,42 @@ import config from '../config';
 
 import morgan from 'morgan';
 
-export default ({ app }: { app: express.Application }) => {
-  // parse requests which comes with 'urlencoded payload'
-  // extended: true => use 'qs' library
-  app.use(express.urlencoded({ extended: true }));
+import Routes from '../index';
 
-  // parse cookie header to 'req.cookies'
-  app.use(cookieParser());
+import { logger } from './logger';
 
-  // enable CORS with various options
-  app.use(cors(config.corsOptions));
+const BAD_REQUEST = 404;
 
-  // body-parser => parse 'body' to 'req.body'
-  app.use(express.json());
+const app = express();
 
-  // secure Express app by setting various HTTP headers.
-  if (process.env.NODE_ENV === 'production') {
-    app.use(helmet());
-  }
+// parse requests which comes with 'urlencoded payload'
+// extended: true => use 'qs' library
+app.use(express.urlencoded({ extended: true }));
 
-  app.use(morgan('combined'));
-};
+// parse cookie header to 'req.cookies'
+app.use(cookieParser());
+
+// enable CORS with various options
+app.use(cors(config.corsOptions));
+
+// body-parser => parse 'body' to 'req.body'
+app.use(express.json());
+
+// secure Express app by setting various HTTP headers.
+if (process.env.NODE_ENV === 'production') {
+  app.use(helmet());
+}
+
+app.use(morgan('combined'));
+
+Routes(app);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  logger.error(JSON.stringify(err, Object.getOwnPropertyNames(err)));
+  return res.status(BAD_REQUEST).json({
+    status: false,
+    error: err.message,
+  });
+});
+
+export default app;
