@@ -1,8 +1,8 @@
-import { SampleRepository } from './sampleRepository';
+import SampleRepository from './sampleRepository';
 
 const sampleRepository = new SampleRepository();
 
-export class SampleService {
+export default class SampleService {
   public async getSample() {
     return await sampleRepository.findSample();
   }

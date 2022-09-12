@@ -11,7 +11,7 @@ const logFormat = printf(({ level, message, timestamp }) => `${timestamp} ${leve
  * Log Level
  * error: 0, warn: 1, info: 2, http: 3, verbose: 4, debug: 5, silly: 6
  */
-export const logger = winston.createLogger({
+const logger = winston.createLogger({
   format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), logFormat),
   transports: [
     new winstonDaily({
@@ -55,3 +55,5 @@ if (process.env.NODE_ENV !== 'production') {
     }),
   );
 }
+
+export default logger;

@@ -1,7 +1,7 @@
 import config from './config';
 import app from './loaders/server';
 
-import { logger } from './loaders/logger';
+import logger from './loaders/logger';
 import messages from '../common/messages';
 import { createServer } from 'http';
 

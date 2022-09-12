@@ -1,4 +1,4 @@
-import { logger } from '@exypress/loaders/logger';
+import logger from '@exypress/loaders/logger';
 import express, { NextFunction, Request, Response } from 'express';
 
 export default (app: express.Application) => {

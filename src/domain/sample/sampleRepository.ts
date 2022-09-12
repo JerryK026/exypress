@@ -1,6 +1,6 @@
-import { Sample } from './entity/Sample';
+import Sample from './entity/Sample';
 
-export class SampleRepository {
+export default class SampleRepository {
   private sample = {
     id: 1,
     name: 'dgt',
