@@ -4,14 +4,12 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import config from '../config';
-
-import morgan from 'morgan';
-
-import Routes from '../index';
-
 import { logger } from './logger';
 
-const BAD_REQUEST = 404;
+import morgan from 'morgan';
+import statusCodes from '../../common/messages/statusCodes';
+
+import Routes from '../index';
 
 const app = express();
 
@@ -39,7 +37,7 @@ Routes(app);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   logger.error(JSON.stringify(err, Object.getOwnPropertyNames(err)));
-  return res.status(BAD_REQUEST).json({
+  return res.status(statusCodes.BAD_REQUEST).json({
     status: false,
     error: err.message,
   });
