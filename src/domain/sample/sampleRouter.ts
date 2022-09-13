@@ -1,8 +1,10 @@
+import { Router } from 'express';
+import { getSample, validateSample } from './sampleController';
+
 import { Error404, Error500 } from '../../../common/error/HttpErrors';
 import DBError from '../../../common/error/DBError';
 
-import { Router } from 'express';
-import { getSample } from './sampleController';
+import { userValidate } from './sampleValidator';
 
 const router = Router();
 
@@ -19,5 +21,7 @@ router.get('/error/500', () => {
 router.get('/error/db', () => {
   throw new DBError('DGT broke my DB');
 });
+
+router.get('/validate/:id', userValidate, validateSample);
 
 export default router;
