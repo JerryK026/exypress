@@ -9,9 +9,8 @@ import logger from './logger';
 import morgan from 'morgan';
 import 'express-async-errors';
 
-import statusCodes from '../../common/messages/statusCodes';
-
 import Routes from '../../src';
+import { BaseHttpError } from '../../common/error/HttpErrors';
 
 const app = express();
 
@@ -37,12 +36,9 @@ app.use(morgan('combined'));
 
 Routes(app);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  logger.error(JSON.stringify(err, Object.getOwnPropertyNames(err)));
-  return res.status(statusCodes.BAD_REQUEST).json({
-    status: false,
-    error: err.message,
-  });
+app.use((err: BaseHttpError, req: Request, res: Response, next: NextFunction) => {
+  logger.error(err.stack);
+  return res.status(err.statusCode || 500).send(err.message);
 });
 
 export default app;
