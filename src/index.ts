@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import SampleRouter from './domain/sample/sampleRouter';
+import express from 'express';
+import sampleRouter from './domain/sample/sampleRouter';
 
-const router = Router();
+export const routers = (app: express.Application) => {
+  app.use('/test', sampleRouter);
+};
 
-router.use('/test', SampleRouter);
-
-export default router;
+export default routers;

@@ -4,12 +4,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import config from '../config';
-import logger from './logger';
 
+import logger from './logger';
 import morgan from 'morgan';
+import 'express-async-errors';
+
 import statusCodes from '../../common/messages/statusCodes';
 
-import Routes from '../index';
+import Routes from '../../src';
 
 const app = express();
 
